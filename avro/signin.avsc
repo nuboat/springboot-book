@@ -1,0 +1,9 @@
+{
+    "type": "record"
+    , "namespace": "generated.avro.form"
+    , "name": "SigninForm"
+    , "fields": [
+      { "name": "username", "type": "string" },
+      { "name": "password", "type": "string" }
+    ]
+}
