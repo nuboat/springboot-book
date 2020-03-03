@@ -1,0 +1,67 @@
+package link.colon.jdbc;
+
+import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+@Slf4j
+@SpringBootTest
+@RunWith(SpringRunner.class)
+class H2JdbcTest {
+
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
+
+    private static boolean setUpIsDone = false;
+
+    @BeforeEach
+    public void beforeEach() {
+        initialDB();
+    }
+
+    @Test
+    void testOne() {
+        log.info("testOne");
+    }
+
+    @Test
+    void testTwo() {
+        log.info("testTwo");
+    }
+
+    private void initialDB() {
+        if (setUpIsDone) return;
+
+        log.info("initialDB");
+
+        jdbcTemplate.execute("DROP TABLE IF EXISTS customers");
+        jdbcTemplate.execute("CREATE TABLE customers(id INT, first_name VARCHAR(16), last_name VARCHAR(16))");
+
+        // Split up the array of whole names into an array of first/last names
+        final List<Object[]> splitUpNames =
+                Stream.of("1 John Woo", "2 Jeff Dean", "3 Josh Bloch", "4 Josh Long")
+                        .map(name -> name.split(" "))
+                        .collect(Collectors.toList());
+
+        // Use a Java 8 stream to print out each tuple of the list
+        splitUpNames.forEach(name ->
+                log.info("Inserting customer record for {} {} {}", name[0], name[1], name[2]));
+
+        // Uses JdbcTemplate's batchUpdate operation to bulk load data
+        jdbcTemplate.batchUpdate(
+                "INSERT INTO customers(id, first_name, last_name) VALUES (?, ?, ?)",
+                splitUpNames);
+
+        setUpIsDone = true;
+    }
+
+}
