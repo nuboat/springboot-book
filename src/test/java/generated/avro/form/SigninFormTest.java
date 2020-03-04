@@ -18,6 +18,9 @@ class SigninFormTest {
 
         val bean = SigninForm.fromByteBuffer(form.toByteBuffer());
         log.info("B {}", bean);
+
+        assert bean != form : "instance should be different";
+        assert bean.equals(form) : "instance should equivalent";
     }
 
 }
