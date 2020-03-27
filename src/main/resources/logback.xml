@@ -11,10 +11,11 @@
         </layout>
     </appender>
 
-    <root level="INFO">
+    <root level="ERROR">
         <appender-ref ref="FILE"/>
     </root>
 
-    <logger name="link.colon" level="INFO"/>
+    <logger name="link.colon.controller" level="INFO"/>
+
 
 </configuration>
