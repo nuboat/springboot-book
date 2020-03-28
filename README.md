@@ -29,4 +29,11 @@ SPRINGBOOG BOOK
 protoc --java_out=src/main/java protobuf/*.proto
 ```
 
+
+##Load Test
+```$xslt
+ab -c 120 -n 10000 -k http://localhost:8080/verify/APP-DEMO-1-N
+```
+
+
 @ COPYRIGHT 2020, PEERAPAT ASOKTUMMARUNGSRI
