@@ -48,11 +48,12 @@ class H2JdbcTest {
         val splitUpNames = Stream
                 .of("1 John Woo", "2 Jeff Dean", "3 Josh Bloch", "4 Josh Long")
                 .map(name -> name.split(" "))
+                .map(arr -> new Object[] {Integer.valueOf(arr[0].toString()), arr[1], arr[2]})
                 .collect(Collectors.<Object[]>toList());
 
         // Use a Java 8 stream to print out each tuple of the list
         splitUpNames.forEach(name ->
-                log.info("Inserting customer record for {} {} {}", name[0], name[1], name[2]));
+                log.info("Inserting customer record for {} {} {}", Integer.valueOf(name[0].toString()), name[1], name[2]));
 
         // Uses JdbcTemplate's batchUpdate operation to bulk load data
         jdbcTemplate.batchUpdate(

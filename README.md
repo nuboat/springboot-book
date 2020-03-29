@@ -23,6 +23,11 @@ SPRINGBOOG BOOK
  > scoop install protobuf
 ```
 
+run
+java -jar springboot-book-1.0.jar -Xmx128M -Xms128M
+java -jar springboot-book-1.0.jar -Xmx1G -Xms1G
+
+
 
 ##ProtobufCompile
 ```
@@ -33,6 +38,9 @@ protoc --java_out=src/main/java protobuf/*.proto
 ##Load Test
 ```$xslt
 ab -c 120 -n 10000 -k http://localhost:8080/verify/APP-DEMO-1-N
+ab -c 60 -n 100000 -k http://localhost:8080/register/light/510000000236/Peerapat/Asoktummarungsri/20190101/ME0111111
+
+ab -c 30 -n 10000 -k http://localhost:8080/register/light/510000000236/Peerapat/Asoktummarungsri/20190101/ME0111111
 ```
 
 

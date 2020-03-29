@@ -24,6 +24,7 @@ class JsonBodyTest {
     void testSigninParams() throws Exception {
         val builder = MockMvcRequestBuilders
                 .post("/signin")
+                .header("Content-Type", "multipart/form-data")
                 .param("username", "aa")
                 .param("password", "aa");
 
@@ -33,7 +34,7 @@ class JsonBodyTest {
                 .getResponse()
                 .getContentAsString();
 
-        assert "OK".equals(body);
+        assert "false".equals(body);
     }
 
     @Test
@@ -49,7 +50,7 @@ class JsonBodyTest {
                 .getResponse()
                 .getContentAsString();
 
-        assert "OK".equals(body);
+        assert "true".equals(body);
     }
 
 }
