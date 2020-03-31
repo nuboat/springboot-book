@@ -17,21 +17,29 @@ class RaoMaiTingGun {
     private final RegisterFacade facade;
 
     @GetMapping(value ="/register/light/{citizenId}/{name}/{surName}/{dob}/{laserCode}")
-    private JSResponse<String> postParamsLight(@PathVariable("citizenId") final String citizenId
+    private String postParamsLight(@PathVariable("citizenId") final String citizenId
             , @PathVariable("name") final String name
             , @PathVariable("surName") final String surName
             , @PathVariable("dob") final String dob
             , @PathVariable("laserCode") final String laserCode) {
 
-        val r = facade.save(citizenId, name, surName, dob, laserCode);
-        return new JSResponse<>("0", "success", r);
+        return facade.insert(citizenId, name, surName, dob, laserCode);
+    }
+
+    @GetMapping(value ="/register/redis/{citizenId}/{name}/{surName}/{dob}/{laserCode}")
+    private String postParamsRedis(@PathVariable("citizenId") final String citizenId
+            , @PathVariable("name") final String name
+            , @PathVariable("surName") final String surName
+            , @PathVariable("dob") final String dob
+            , @PathVariable("laserCode") final String laserCode) {
+
+        return facade.redis(citizenId, name, surName, dob, laserCode);
     }
 
     @PostMapping(value = "/register", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    private JSResponse<String> postParams(final RegisterForm form) {
+    private String postParams(final RegisterForm form) {
 
-        val r = facade.save(form);
-        return new JSResponse<>("0", "success", r);
+        return facade.save(form);
     }
 
     @PostMapping(value = "/register", consumes = MediaType.APPLICATION_JSON_VALUE)

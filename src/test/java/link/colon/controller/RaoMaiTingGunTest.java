@@ -34,6 +34,20 @@ class RaoMaiTingGunTest {
     }
 
     @Test
+    void testRegisterRedis() throws Exception {
+        val builder = MockMvcRequestBuilders
+                .get("/register/redis/5101600007236/Peerapat/Asoktummarungsri/20190101/ME0111111");
+
+        val body = mvc.perform(builder)
+                .andExpect(status().isOk())
+                .andReturn()
+                .getResponse()
+                .getContentAsString();
+
+        log.info("body {}", body);
+    }
+
+    @Test
     void testRegister() throws Exception {
         val builder = MockMvcRequestBuilders
                 .post("/register")

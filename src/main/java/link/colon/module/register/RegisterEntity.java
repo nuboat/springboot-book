@@ -9,13 +9,14 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import java.io.Serializable;
 
 @Data
 @Entity
 @Table(name = "register")
 @NoArgsConstructor
 @AllArgsConstructor
-public class RegisterEntity implements Persistable<String> {
+public class RegisterEntity implements Persistable<String>, Serializable {
 
     @Id
     public String id;
